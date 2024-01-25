@@ -1,0 +1,12 @@
+{
+    "$schema": "https://raw.githubusercontent.com/WordPress/gutenberg/trunk/schemas/json/block.json",
+    "apiVersion": 2,
+    "name": "ept-user-flow/reset-password",
+    "title": "Reset password form",
+    "category": "text",
+    "description": "Adds a form for resetting lost password",
+    "textdomain": "ept-user-flow",
+    "attributes": {}, 
+    "editorScript": "file:./index.js",
+    "style": "file:./index.css"
+  } 

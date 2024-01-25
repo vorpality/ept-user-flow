@@ -1,0 +1,11 @@
+{
+    "$schema": "https://raw.githubusercontent.com/WordPress/gutenberg/trunk/schemas/json/block.json",
+    "apiVersion": 2,
+    "name": "ept-user-flow/log-out-helper",
+    "title": "Log out Helper",
+    "category": "text",
+    "description": "Logs the user out on visiting the page this block is on",
+    "textdomain": "e-potis",
+    "editorScript": "file:./index.js",
+    "style": "file:./index.css"
+  }

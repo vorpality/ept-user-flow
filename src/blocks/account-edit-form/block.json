@@ -1,0 +1,16 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "ept-user-flow/account-edit-form",
+    "title": "Account Edit Form",
+    "category": "widgets",
+    "description": "Adds an account edit form",
+    "keywords": ["account form"],
+    "version": "1",
+    "textdomain": "e-potis",
+    "editorScript": "file:./index.js",
+    "attributes": {
+    },
+    "style": "file:./index.css",
+    "viewScript":"file:./frontend.js"
+  } 

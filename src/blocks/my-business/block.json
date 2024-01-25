@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "ept-user-flow/my-business",
+    "title": "My business List",
+    "category": "widgets",
+    "description": "Adds an business list",
+    "keywords": ["business list"],
+    "version": "1",
+    "textdomain": "e-potis",
+    "editorScript": "file:./index.js",
+    "attributes": {
+    },
+    "style": "file:./index.css"
+  } 
