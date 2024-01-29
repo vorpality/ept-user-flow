@@ -21,12 +21,14 @@ define('EPT_UF_PLUGIN_DIR', plugin_dir_path(__FILE__));
 $rootFiles = glob(EPT_UF_PLUGIN_DIR . 'includes/*.php');
 $subDirectoryFiles = glob(EPT_UF_PLUGIN_DIR . 'includes/**/*.php');
 $subSubDirectoryFiles = glob(EPT_UF_PLUGIN_DIR . 'includes/**/**/*.php');
-$allFiles = array_merge($rootFiles, $subDirectoryFiles, $subSubDirectoryFiles);
+$googleApi = glob(EPT_UF_PLUGIN_DIR . '/assets/vendor/autoload.php');
+
+$allFiles = array_merge($rootFiles, $subDirectoryFiles, $subSubDirectoryFiles, $googleApi);
 
 foreach($allFiles as $filename){
     include_once($filename);
 }
- 
+
 //  Hooks
 add_action('init','ept_uf_register_blocks');
 add_action('rest_api_init', 'ept_uf_rest_api_init');

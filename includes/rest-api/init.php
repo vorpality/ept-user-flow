@@ -28,4 +28,9 @@ function ept_uf_rest_api_init(){
         'permission_callback' => '__return_true'
     ]);
     
+    register_rest_route('ept/v1', '/google-signin', [
+        'methods' => 'POST',
+        'callback' => 'ept_uf_google_signin_handler',
+        'permission_callback' => '__return_true'
+    ]);
 }

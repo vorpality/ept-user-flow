@@ -1,5 +1,7 @@
 import {__} from '@wordpress/i18n'
 document.addEventListener('DOMContentLoaded', () => {
+
+
     const openModalBtn = document.querySelectorAll('.open-auth-modal')
     const modalEl = document.querySelector('.wp-block-ept-user-flow-auth-modal')
     const modalCloseEl = document.querySelectorAll(
@@ -137,4 +139,55 @@ document.addEventListener('DOMContentLoaded', () => {
             `
         }
     })
+
+  //handling google button
+  const signinStatus = document.querySelector('#signin-status')
+  window.handleGoogleSignIn = async (response) => {
+    const credential = response.credential;
+    try {
+      const response = await fetch('http://localhost/wp-json/ept/v1/google-signin', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ credential })
+      });
+  
+      const responseData = await response.json();
+  
+      if (responseData.status == 2) {
+        signinStatus.innerHTML = `
+        <div class = "modal-status modal-status-success">
+           ${__('Success! You are now logged in.','e-potis')}
+        </div>
+    `
+        location.reload();
+      } else {
+        signinStatus.innerHTML = `
+          <div class ="modal-status modal-status-danger">
+          ${__('Invalid credentials! Please try again later.','e-potis')}
+          </div>
+          `
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+  load_google_libs();
+
+
   })
+
+function load_google_libs() {
+  let script = document.createElement('script');
+  script.src = 'https://accounts.google.com/gsi/client';
+  script.async = true;
+  script.defer = true;
+
+  let meta = document.createElement('meta');
+  meta.name = "google-signin-client_id";
+  meta.content = "871559730084-mdf5uea60k4clraguvr76nd17c1517vr.apps.googleusercontent.com"
+
+  document.head.appendChild(script);
+  document.head.appendChild(meta);
+}
