@@ -33,4 +33,10 @@ function ept_uf_rest_api_init(){
         'callback' => 'ept_uf_google_signin_handler',
         'permission_callback' => '__return_true'
     ]);
+
+    register_rest_route('ept/v1', '/force-login', [
+        'methods' => 'POST',
+        'callback' => 'ept_uf_login_helper',
+        'permission_callback' => '__return_true'
+    ]);
 }

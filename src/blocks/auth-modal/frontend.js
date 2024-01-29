@@ -1,6 +1,10 @@
 import {__} from '@wordpress/i18n'
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
+  
 
     const openModalBtn = document.querySelectorAll('.open-auth-modal')
     const modalEl = document.querySelector('.wp-block-ept-user-flow-auth-modal')
@@ -140,10 +144,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-  //handling google button
-  const signinStatus = document.querySelector('#signin-status')
-  window.handleGoogleSignIn = async (response) => {
-    const credential = response.credential;
+
+  load_google_libs();
+
+
+  })
+
+function load_google_libs() {
+  const signinStatus = document.getElementById('signin-status');
+  window.handleGoogleSignIn = async (google_response) => {
+    const credential = google_response.credential;
     try {
       const response = await fetch('http://localhost/wp-json/ept/v1/google-signin', {
           method: 'POST',
@@ -154,31 +164,44 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       const responseData = await response.json();
-  
-      if (responseData.status == 2) {
+      console.log(responseData);
+      if (responseData.status === 2) {
         signinStatus.innerHTML = `
-        <div class = "modal-status modal-status-success">
-           ${__('Success! You are now logged in.','e-potis')}
-        </div>
-    `
-        location.reload();
+          <div class = "modal-status modal-status-success">
+            ${__('Success! You are now logged in.','e-potis')}
+          </div>
+        `
+
+        const login_request = {
+          user_id:responseData.user_id,
+          type:'google'
+        }
+        try {
+          const login_response = await fetch('http://localhost/wp-json/ept/v1/force-login', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(login_request)
+          });
+          const login_response_data = await login_response.json();
+          console.log(login_response_data);
+          location.reload();
+        } catch (e) {
+          console.log(e)
+        }
       } else {
         signinStatus.innerHTML = `
           <div class ="modal-status modal-status-danger">
           ${__('Invalid credentials! Please try again later.','e-potis')}
           </div>
-          `
+        `
       }
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (e) {
+      console.log(e)
     }
   }
-  load_google_libs();
-
-
-  })
-
-function load_google_libs() {
+  
   let script = document.createElement('script');
   script.src = 'https://accounts.google.com/gsi/client';
   script.async = true;

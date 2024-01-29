@@ -21,7 +21,7 @@ function ept_header_tools_render_cb($atts) {
                         <i class="bi bi-person-circle"></i>
                     </div>
 
-                    <?php if($user->exists()) {
+                    <?php     echo($user->ID);if($user->exists()) {
                     ?> 
 				</a>
                 <div class="signin-text">
