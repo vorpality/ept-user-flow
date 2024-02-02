@@ -28,20 +28,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const verify_pass=data_replace_form.querySelector('#dr-verify-password').value;
         const newsletter = data_replace_form.querySelector('#dr-newsletter').value
         const id = data_replace_form.querySelector('#user-id').value;
-
-        if(old_pass!=new_pass ||
-            (new_pass!=verify_pass) ||
-            (new_pass.length<8)
+        if( new_pass &&
+          (old_pass!=new_pass ||
+          new_pass!=verify_pass ||
+          new_pass.length<8)
         )
         {
-            event.preventDefault();
-            data_form_fieldset.removeAttribute('disabled')
-            data_replace_status.innerHTML = `
-            <div class ="form-status form-status-danger">
-              ${__('The passwords entered do not match or are not at least 8 characters.', 'e-potis')}
-            </div>
-            `
-            
+          event.preventDefault();
+          data_form_fieldset.removeAttribute('disabled')
+          data_replace_status.innerHTML = `
+          <div class ="form-status form-status-danger">
+            ${__('The passwords entered do not match or are not at least 8 characters.', 'e-potis')}
+          </div>
+          `
         }    
         const formData = {
             user_id:id,
