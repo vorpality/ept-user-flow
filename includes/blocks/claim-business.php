@@ -1,6 +1,6 @@
 <?php
 
-function ept_uf_my_business_render_cb($atts) {
+function ept_uf_claim_business_render_cb($atts) {
   $user = wp_get_current_user();
   if (!get_user_meta($user->ID, 'business_owner', true) && !is_admin()){
     wp_redirect(home_url());

@@ -5,8 +5,9 @@ import {
 import { __ } from "@wordpress/i18n"
 import icons from '../../icons'
 import './main.css'
+import block from './block.json'
 
-registerBlockType('ept-user-flow/my-business', {
+registerBlockType(block.name, {
   edit({ attributes, setAttributes }) {
     const { bgColor, textColor } = attributes
     const blockProps = useBlockProps({
