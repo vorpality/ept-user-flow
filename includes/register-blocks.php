@@ -22,6 +22,9 @@ function ept_uf_register_blocks() {
         ]],
         [ 'name' => 'my-business', 'options' => [
             'render_callback' => 'ept_uf_my_business_render_cb'
+        ]],
+        [ 'name' => 'claim-business', 'options' => [
+            'render_callback' => 'ept_uf_claim_business_render_cb'
         ]]
     ]; 
 

@@ -25,7 +25,9 @@ function ept_uf_rest_api_init(){
     register_rest_route('ept/v1', '/replace', [
         'methods' => WP_REST_SERVER::EDITABLE,
         'callback' => 'ept_uf_rest_api_data_replace_handler',
-        'permission_callback' => '__return_true'
+        'permission_callback' =>  function() {
+            return is_user_logged_in(); 
+        }
     ]);
     
     register_rest_route('ept/v1', '/google-signin', [
@@ -39,4 +41,13 @@ function ept_uf_rest_api_init(){
         'callback' => 'ept_uf_login_helper',
         'permission_callback' => '__return_true'
     ]);
+
+    register_rest_route('ept/v1', '/claim-business', [
+        'methods' => 'POST',
+        'callback' => 'ept_uf_rest_api_claim_business_handler',
+        'permission_callback' => function() {
+            return is_user_logged_in(); 
+        }
+    ]);
+    
 }
