@@ -2,6 +2,8 @@
 
 function ept_uf_enqueue_scripts(){
     ept_uf_enqueue_rest_shorts();
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('jquery-ui-autocomplete');
 }
 
 
@@ -38,7 +40,4 @@ function ept_uf_enqueue_rest_shorts(){
         'before' //after
     );
 }
-
-
-
 

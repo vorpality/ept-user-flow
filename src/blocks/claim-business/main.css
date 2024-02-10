@@ -1,5 +1,8 @@
-/* Contact form */
 .wp-block-ept-user-flow-claim-business {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:50%;
   border-radius: 0.5rem;
   --tw-bg-opacity: 1;
   background-color: var(--wp--preset--color--ept-gray-500);
@@ -25,35 +28,33 @@
   text-align: center;
   padding:1rem;
 }
-.wp-block-ept-user-flow-claim-business .list-title {
-  font-size:large;
+.wp-block-ept-user-flow-claim-business #own-business-form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
 }
-.wp-block-ept-user-flow-claim-business .business-list, .list-title{
-  margin:.66rem;
-}
-.wp-block-ept-user-flow-claim-business .business-list>li>{
-  margin:.3rem;
-}
-
-.wp-block-ept-user-flow-claim-business .add-duo {
-  margin: 0.33rem;
-  background-color: inherit;
-
+.wp-block-ept-user-flow-claim-business .business-search{
+  color: black;
+  margin-top:1rem;
 }
 
-.wp-block-ept-user-flow-claim-business i,button{
-  background-color: inherit;
+.wp-block-ept-user-flow-claim-business #own-business-form>button {
+  margin-top:1rem;
+  border-radius:1rem;
+  background-color: var(--ept-gray-700);
+  padding:0.3rem;
 }
 
-.wp-block-ept-user-flow-claim-business .add-label{
-  margin:.66rem;
+.wp-block-ept-user-flow-claim-business #own-business-form>button:hover {
+  background-color: var(--ept-gray-600);
+}  
+
+.wp-block-ept-user-flow-claim-business .ui-autocomplete{
+background-color:white;
 }
 
-.wp-block-ept-user-flow-claim-business .business-list .list-item {
-  font-size:large;
-}
+.wp-block-ept-user-flow-claim-business .ui-menu-item{
+  background-color:white;
 
-.wp-block-ept-user-flow-claim-business >a:hover , .business-list a:hover {
-  text-decoration: underline;
-  color:var(--wp--preset--color--ept-gray-200)
 }

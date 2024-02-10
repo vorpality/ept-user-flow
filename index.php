@@ -32,11 +32,11 @@ foreach($allFiles as $filename){
 //  Hooks
 add_action('init','ept_uf_register_blocks');
 add_action('rest_api_init', 'ept_uf_rest_api_init');
-add_action('wp_enqueue_scripts', 'ept_uf_enqueue_scripts');;
+add_action('wp_enqueue_scripts', 'ept_uf_enqueue_scripts');
 add_filter('wp_mail_from', 'ept_uf_new_mail_from');
 add_filter('wp_mail_from_name', 'ept_uf_new_mail_from_name');
 add_action('login_form_resetpass', 'ept_pw_reset_redirect');
-add_action( 'login_form_rp','do_password_reset');
-add_action( 'login_form_resetpass', 'do_password_reset');
+add_action('login_form_rp','do_password_reset');
+add_action('login_form_resetpass', 'do_password_reset');
 add_action('init', 'ept_user_flow_load_php_translations');
 add_action('wp_enqueue_scripts', 'ept_user_flow_load_block_translations',100); 

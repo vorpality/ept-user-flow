@@ -1,5 +1,22 @@
+jQuery(document).ready(function($) {
+  const claimBusinessContainer = document.querySelector('.wp-block-ept-user-flow-claim-business');
+
+  const placesData = JSON.parse(claimBusinessContainer.dataset.places);
+  const businessSearchInput = document.querySelector('.business-search');
+
+  $(businessSearchInput).autocomplete({
+    source: placesData.map(place => ({ label: place.name, value: place.id })),
+    select: function(event, ui) {
+      document.querySelector('#business-data').setAttribute('data-place-id', ui.item.value);
+    }
+  });
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
+  const claimBusinessContainer = document.querySelector('.wp-block-ept-user-flow-claim-business');
   const claimForm = document.querySelector('#own-business-form');
+  const placesData = JSON.parse(claimBusinessContainer.dataset.places);
 
   claimForm?.addEventListener('submit', async event => {
     event.preventDefault();
@@ -10,14 +27,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const formData = {
       user_id:user_id,
-      buisness_id:business_id
+      business_id:business_id
     }
-
+    const selectedPlace = placesData.find(place => place.id == business_id);
+    const isConfirmed = confirm(`Are you sure you want to claim ${selectedPlace.name}?`);
+    
+    if (!isConfirmed) {
+      return; 
+    }
     try {
-      const response = await fetch('/ept/v1/claim-business', {
+      const response = await fetch('http://localhost/wp-json/ept/v1/claim-business', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formData })
+        body: JSON.stringify(formData)
       });
 
       const responseData = await response.json();
@@ -32,3 +54,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+
