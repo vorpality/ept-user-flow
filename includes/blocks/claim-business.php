@@ -20,7 +20,7 @@ function ept_uf_claim_business_render_cb($atts) {
     </header>
     <form id = "own-business-form">
       <label> <?php _e('Add new business'); ?> </label>
-      <input type="text" class = "business-search"/>
+      <input type="text" class = "business-search" value=""/>
       <input type="hidden" id = "business-data" data-place-id="" data-user-id="<?php echo($user->ID); ?>"/>
       <button type = "submit"> <?php _e('Submit', 'e-potis'); ?>
       </button>

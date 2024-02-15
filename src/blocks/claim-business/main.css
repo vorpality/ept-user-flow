@@ -54,7 +54,11 @@
 background-color:white;
 }
 
- .ui-menu-item-wrapper{
+.wp-block-ept-user-flow-claim-business .ui-menu-item-wrapper{
   background-color:white;
+  color:black;
+}
 
+.ui-helper-hidden-accessible{
+  display:none;
 }

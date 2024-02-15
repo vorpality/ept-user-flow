@@ -4,14 +4,27 @@ jQuery(document).ready(function($) {
   const placesData = JSON.parse(claimBusinessContainer.dataset.places);
   const businessSearchInput = document.querySelector('.business-search');
 
+  var lastSelectedLabel = "";
+
   $(businessSearchInput).autocomplete({
     source: placesData.map(place => ({ label: place.name, value: place.id })),
+    appendTo:".wp-block-ept-user-flow-claim-business",
     select: function(event, ui) {
+      event.preventDefault();
+      $(this).val(ui.item.label);
       document.querySelector('#business-data').setAttribute('data-place-id', ui.item.value);
+      lastSelectedLabel = ui.item.label;
     },
     open: function() {
       const inputWidth = $(businessSearchInput).outerWidth(); // Get the outer width of the input field
+
       $('.ui-autocomplete').css('width', inputWidth + 'px'); // Set the width of the dropdown menu
+    }
+  });
+
+  $(businessSearchInput).on('input', function() {
+    if ($(this).val().trim() !== lastSelectedLabel) {
+      $('#business-data').attr('data-place-id', '');
     }
   });
 
