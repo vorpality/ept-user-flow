@@ -15,7 +15,7 @@ function ept_uf_claim_business_render_cb($atts) {
   ?>
   <div class="wp-block-ept-user-flow-claim-business" 
     data-places='<?php echo json_encode($places_data); ?>'>
-    <header> 
+    <header id = "block-title"> 
       <?php _e("Here you can claim a business as the owner.", 'e-potis'); ?>
     </header>
     <form id = "own-business-form">
@@ -25,6 +25,19 @@ function ept_uf_claim_business_render_cb($atts) {
       <button type = "submit"> <?php _e('Submit', 'e-potis'); ?>
       </button>
     </form>
+
+    <div id="submit-modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div id = "modal-details">
+          <h2><?php _e('Post Details', 'e-potis'); ?></h2>
+          <p id="modal-title"></p>
+          <p><a href="" id="modal-link" target="_blank"><?php _e('View Post','e-potis'); ?></a></p>
+          <button id="confirm-button"><?php _e('Confirm', 'e-potis'); ?> </button>
+        </div>
+      </div>
+    </div>
+
   </div>
   <?php
 

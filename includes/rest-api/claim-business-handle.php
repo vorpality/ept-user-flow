@@ -33,7 +33,7 @@ function ept_uf_rest_api_claim_business_handler($atts){
       $response['message'] = __('Failed to claim the business. Please try again later.', 'e-potis');
       return new WP_REST_Response($response, 500);
   }
-  update_user_meta($userID, 'owner', 1);
+  update_user_meta($userID, 'business_owner', 1);
 
   $response['status'] = 2;
 

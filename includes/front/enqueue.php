@@ -17,7 +17,8 @@ function ept_uf_enqueue_rest_shorts(){
         'forgot' => esc_url_raw(rest_url('ept/v1/forgot'))
     ]);
     $dataURLs = json_encode([
-        'replace' => esc_url_raw(rest_url('ept/v1/replace')),
+        'claim' => esc_url_raw(rest_url('ept/v1/claim-business')),
+        'replace' => esc_url_raw(rest_url('ept/v1/replace'))
     ]);
 
     
@@ -39,5 +40,10 @@ function ept_uf_enqueue_rest_shorts(){
         "const ept_account_edit = {$dataURLs}",
         'before' //after
     );
+    wp_add_inline_script(
+      'ept-user-flow-claim-business-view-script',          
+      "const ept_claim_business = {$dataURLs}",
+      'before' //after
+  );
 }
 
