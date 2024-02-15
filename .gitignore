@@ -3,12 +3,16 @@
 
 #npm stuff
 /node_modules
-
-#google authentication
-/assets/vendor
-#general stuff
 /package-lock.json
 /package.json
+
+#composer
+/assets
+/composer.json
+/composer.lock
+
+#zip files
+/*.zip
 
 #translations?
 /languages
