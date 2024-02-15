@@ -2,7 +2,7 @@
 
 function ept_uf_account_edit_form_render_cb($atts) {
   $user = wp_get_current_user();
-  $nsltr = !!get_user_meta($user->ID, 'newsletter', false);
+  $nsltr = get_user_meta($user->ID, 'newsletter', true);
   ob_start();
   ?>
   <div class="wp-block-ept-user-flow-account-edit-form">
@@ -57,18 +57,19 @@ function ept_uf_account_edit_form_render_cb($atts) {
     </input>
     <div class = "bottom-wrapper">
       <div class = "check_box_container">
-        <label for="newsletter_box"> Εγγραφή στο newsletter  </label>
+        <label for="newsletter_box"><?php _e('Keep me updated', 'e-potis'); ?></label>
         <input 
           id="dr-newsletter" 
           name="newsletter"
           type="checkbox"
-          value="<?php echo $nsltr?>"
+          value="0"
+          <?php checked($nsltr,1)?>
         />
         <input type="hidden" name="form-id" value = "011"></input>
         <input type="hidden" id="user-id" value = "<?php echo $user->ID?>"></input>
       </div>
       <div class='btn-wrapper'>
-          <button type="submit" class='open-confirmation-modal'>Αποθήκευση</button>
+          <button type="submit" class='open-confirmation-modal'><?php _e('Submit', 'e-potis'); ?></button>
       </div>
     </div>
 </fieldset>

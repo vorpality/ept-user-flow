@@ -56,6 +56,27 @@ function ept_auth_modal_render_cb($atts) {
               <button type="submit">Sign in</button>
             </fieldset>
           </form>
+<!-- 
+data-login_uri="http://localhost/wp-json/ept/v1/google-signin" 
+data-callback="handleGoogleSignin" 
+-->
+          <div id="g_id_onload"
+            data-client_id="871559730084-mdf5uea60k4clraguvr76nd17c1517vr.apps.googleusercontent.com"
+            data-callback="handleGoogleSignIn"
+            
+
+            data-auto_prompt="false">
+          </div>
+          <div class="g_id_signin"
+            data-type="standard"
+            data-size="large"
+            data-theme="outline"
+            data-text="sign_in_with"
+            data-shape="rectangular"
+            data-logo_alignment="left">
+          </div>
+
+
           <?php
 
           if($atts['showRegister']) {

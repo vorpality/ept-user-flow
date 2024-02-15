@@ -11,7 +11,7 @@ registerBlockType('ept-user-flow/my-business', {
     const { bgColor, textColor } = attributes
     const blockProps = useBlockProps({
       style: {
-        'background-color': bgColor,
+        'backgroundColor': bgColor,
         color: textColor
       } 
     })
@@ -41,7 +41,7 @@ registerBlockType('ept-user-flow/my-business', {
             <input type="text" placeholder="Search" />
             <div className="btn-wrapper">
               <button type="submit" style={{
-                'background-color': bgColor,
+                'backgroundColor': bgColor,
                 color: textColor
               }}>Search</button>
             </div>

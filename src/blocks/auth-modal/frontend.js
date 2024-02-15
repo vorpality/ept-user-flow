@@ -1,5 +1,11 @@
 import {__} from '@wordpress/i18n'
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
+
+  
+
     const openModalBtn = document.querySelectorAll('.open-auth-modal')
     const modalEl = document.querySelector('.wp-block-ept-user-flow-auth-modal')
     const modalCloseEl = document.querySelectorAll(
@@ -137,4 +143,74 @@ document.addEventListener('DOMContentLoaded', () => {
             `
         }
     })
+
+
+  load_google_libs();
+
+
   })
+
+function load_google_libs() {
+  const signinStatus = document.getElementById('signin-status');
+  window.handleGoogleSignIn = async (google_response) => {
+    const credential = google_response.credential;
+    try {
+      const response = await fetch('http://localhost/wp-json/ept/v1/google-signin', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ credential })
+      });
+  
+      const responseData = await response.json();
+      console.log(responseData);
+      if (responseData.status === 2) {
+        signinStatus.innerHTML = `
+          <div class = "modal-status modal-status-success">
+            ${__('Success! You are now logged in.','e-potis')}
+          </div>
+        `
+
+        const login_request = {
+          user_id:responseData.user_id,
+          type:'google'
+        }
+        try {
+          const login_response = await fetch('http://localhost/wp-json/ept/v1/force-login', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(login_request)
+          });
+          const login_response_data = await login_response.json();
+          console.log(login_response_data);
+          location.reload();
+        } catch (e) {
+          console.log(e)
+        }
+      } else {
+        signinStatus.innerHTML = `
+          <div class ="modal-status modal-status-danger">
+          ${__('Invalid credentials! Please try again later.','e-potis')}
+          </div>
+        `
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  
+  let script = document.createElement('script');
+  script.src = 'https://accounts.google.com/gsi/client';
+  script.async = true;
+  script.defer = true;
+
+  let meta = document.createElement('meta');
+  meta.name = "google-signin-client_id";
+  meta.content = "871559730084-mdf5uea60k4clraguvr76nd17c1517vr.apps.googleusercontent.com"
+
+  document.head.appendChild(script);
+  document.head.appendChild(meta);
+}

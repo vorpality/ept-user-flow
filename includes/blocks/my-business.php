@@ -1,11 +1,27 @@
 <?php
 
 function ept_uf_my_business_render_cb($atts) {
+  global $wpdb;
   $user = wp_get_current_user();
-  if (!get_user_meta($user->ID, 'business_owner', true)){
+  if (!get_user_meta($user->ID, 'business_owner', true) && !is_admin()){
     wp_redirect(home_url());
   }
-  $businesses = get_user_meta($user->ID, 'has_business');
+  $table_name = $wpdb->prefix . 'bar_owners';
+
+  $query = $wpdb->prepare(
+    "SELECT post_id FROM $table_name WHERE user_id = %d",
+    $user->ID
+  );
+
+  $results = $wpdb->get_results($query);
+
+  $businesses = [];
+
+if (!empty($results)) {
+    foreach ($results as $row) {
+        $businesses[] = $row->post_id;
+    }
+}
 
   ob_start()
   ?>

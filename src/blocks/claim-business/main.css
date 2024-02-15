@@ -1,0 +1,121 @@
+.wp-block-ept-user-flow-claim-business {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width:50%;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  color : var(--wp--preset--color--ept-white);
+  transition:color 0.3s;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  padding:1rem;
+  padding-top:0
+}
+
+.wp-block-ept-user-flow-claim-business .v-aligner {
+  display:flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.wp-block-ept-user-flow-claim-business > header {
+  font-size:larger;
+  text-align: center;
+  padding:1rem;
+}
+.wp-block-ept-user-flow-claim-business #own-business-form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+.wp-block-ept-user-flow-claim-business .business-search{
+  color: black;
+  margin-top:1rem;
+}
+
+.wp-block-ept-user-flow-claim-business #own-business-form>button {
+  margin-top:1rem;
+  border-radius:1rem;
+  background-color: var(--ept-gray-700);
+  padding:0.5rem;
+  padding-bottom:0.3rem;
+  padding-top:0.3rem;
+  font-size:small;
+}
+
+.wp-block-ept-user-flow-claim-business #own-business-form>button:hover {
+  background-color: var(--ept-gray-600);
+}  
+
+.wp-block-ept-user-flow-claim-business .ui-autocomplete{
+background-color:white;
+}
+
+.wp-block-ept-user-flow-claim-business .ui-menu-item-wrapper{
+  background-color:white;
+  color:black;
+}
+
+.ui-helper-hidden-accessible{
+  display:none;
+}
+
+.wp-block-ept-user-flow-claim-business #submit-modal {
+  display:none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  color:black;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
+
+.wp-block-ept-user-flow-claim-business .modal-content {
+  background-color: #fff;
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top:.4rem;
+  border-radius: 5px;
+  width: 50%;
+  max-width: 600px;
+}
+
+.wp-block-ept-user-flow-claim-business .close-button {
+  float: right;
+  cursor: pointer;
+}
+
+.wp-block-ept-user-flow-claim-business #confirm-button {
+  background-color:var(--ept-gray-300);
+  border-radius: 1rem;
+  margin-top:1rem;
+  margin-left:.6rem;
+  padding:.5rem;
+  padding-top:.2rem;
+  padding-bottom:.2rem;
+
+}
+
+.wp-block-ept-user-flow-claim-business #confirm-button:hover {
+  background-color:var(--ept-gray-400);
+}
+
+.wp-block-ept-user-flow-claim-business #modal-details {
+  margin-top:.66rem;
+}
+.close-button:hover {
+  color: red;
+}
+
+.wp-block-ept-user-flow-claim-business #modal-link:hover{
+  color:blue;
+}

@@ -1,0 +1,16 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "ept-user-flow/claim-business",
+    "title": "Claim business",
+    "category": "widgets",
+    "description": "Adds an claim business block",
+    "keywords": ["business claim"],
+    "version": "1",
+    "textdomain": "e-potis",
+    "editorScript": "file:./index.js",
+    "attributes": {
+    },
+    "style": "file:./index.css",
+    "viewScript": "file:./frontend.js"
+  } 
