@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: flex-start;
   width:50%;
-  border-radius: 0.5rem;
   --tw-bg-opacity: 1;
   color : var(--wp--preset--color--ept-white);
   transition:color 0.3s;
@@ -12,7 +11,9 @@
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   padding:1rem;
-  padding-top:0
+  padding-top:0;
+  margin-left:2rem;
+  margin-bottom:1rem;
 }
 
 .wp-block-ept-user-flow-claim-business .v-aligner {
@@ -26,11 +27,21 @@
   text-align: center;
   padding:1rem;
 }
+
+.wp-block-ept-user-flow-claim-business #new-business-title{
+  font-size:1.5rem;
+}
+
 .wp-block-ept-user-flow-claim-business #own-business-form{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
+  padding:2rem;
+  border:1px solid white;
+  border-radius: 0.5rem;
+
+
 }
 .wp-block-ept-user-flow-claim-business .business-search{
   color: black;

@@ -47,5 +47,10 @@ function ept_uf_rest_api_init(){
         'callback' => 'ept_uf_rest_api_claim_business_handler',
         'permission_callback' => '__return_true'
     ]);
-    
+
+    register_rest_route('ept/v1', '/add-event', [
+        'methods' => WP_REST_SERVER::CREATABLE,
+        'callback' => 'ept_uf_rest_api_add_event_handler',
+        'permission_callback' => '__return_true'
+    ]);
 }

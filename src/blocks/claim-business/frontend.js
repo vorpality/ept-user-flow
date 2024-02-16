@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-  var showButton = $('.wp-block-ept-user-flow-my-business .add-duo');
+  var showButton = $('.wp-block-ept-user-flow-my-business .claim-business-button');
   var claimBusinessContainer = document.querySelector('.wp-block-ept-user-flow-claim-business');
 
   const placesData = JSON.parse(claimBusinessContainer.dataset.places);

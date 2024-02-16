@@ -23,10 +23,11 @@
   padding:1rem;
 }
 .wp-block-ept-user-flow-my-business .list-title {
-  font-size:large;
+  font-size:1.5rem;
 }
 .wp-block-ept-user-flow-my-business .business-list, .list-title{
   margin:.66rem;
+  margin-left:1.2rem;
 }
 .wp-block-ept-user-flow-my-business .business-list>li>{
   margin:.3rem;
@@ -35,16 +36,13 @@
 .wp-block-ept-user-flow-my-business .add-duo {
   margin: 0.33rem;
   background-color: inherit;
-
+  width:fit-content;
 }
 
 .wp-block-ept-user-flow-my-business i,button{
   background-color: inherit;
 }
 
-.wp-block-ept-user-flow-my-business button {
-  font-size:small;
-}
 .wp-block-ept-user-flow-my-business .add-label{
   margin:.66rem;
 }

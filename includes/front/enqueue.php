@@ -10,8 +10,7 @@ function ept_uf_enqueue_scripts(){
 function ept_uf_enqueue_rest_shorts(){
     $authURLs = json_encode([
         'signup' => esc_url_raw(rest_url('ept/v1/signup')),
-        'signin' => esc_url_raw(rest_url('ept/v1/signin')),
-        
+        'signin' => esc_url_raw(rest_url('ept/v1/signin'))
     ]);
     $passwordToolURLs = json_encode([
         'forgot' => esc_url_raw(rest_url('ept/v1/forgot'))
@@ -20,7 +19,9 @@ function ept_uf_enqueue_rest_shorts(){
         'claim' => esc_url_raw(rest_url('ept/v1/claim-business')),
         'replace' => esc_url_raw(rest_url('ept/v1/replace'))
     ]);
-
+    $eventURLS = json_encode([
+        'add' => esc_url_raw(rest_url('ept/v1/add-event'))
+    ]);
     
 
     wp_add_inline_script(
@@ -44,6 +45,11 @@ function ept_uf_enqueue_rest_shorts(){
       'ept-user-flow-claim-business-view-script',          
       "const ept_claim_business = {$dataURLs}",
       'before' //after
-  );
+    );
+    wp_add_inline_script(
+        'ept-user-flow-add-event-view-script',          
+        "const ept_events = {$eventURLS}",
+        'before' //after
+    );
 }
 

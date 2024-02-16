@@ -1,0 +1,16 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "ept-user-flow/add-event",
+    "title": "Add event ",
+    "category": "widgets",
+    "description": "Allows an owner to add a new event to an owned place",
+    "keywords": ["add event"],
+    "version": "1",
+    "textdomain": "e-potis",
+    "editorScript": "file:./index.js",
+    "attributes": {
+    },
+    "style": "file:./index.css",
+    "viewScript":"file:./frontend.js"
+  } 

@@ -47,9 +47,17 @@ if (!empty($results)) {
     }
     ?>
     </dl>
-    <a href = "<?php echo home_url("claim-business"); ?>" class = "v-aligner add-duo">
+    <a href = "<?php echo home_url("claim-business"); ?>" class = "v-aligner add-duo claim-business-button">
       <span class = "add-label">
         <?php _e('Add new business'); ?>
+      </span>
+      <button class = "add-button">
+        <i class="bi bi-plus-square"></i>
+      </button> 
+    </a>
+    <a href = "<?php echo home_url("claim-business"); ?>" class = "v-aligner add-duo add-event-button">
+      <span class = "add-label">
+        <?php _e('Add new event'); ?>
       </span>
       <button class = "add-button">
         <i class="bi bi-plus-square"></i>
