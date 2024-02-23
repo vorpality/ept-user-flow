@@ -96,7 +96,8 @@ const FileUploadComponent = ({startingImages}) => {
             
           </div>
         ))}
-        {selectedFiles.length > 0 && 
+        </div>
+      {selectedFiles.length > 0 && 
         <button 
           className='clear-list'
           onClick={clearFiles}
@@ -104,7 +105,6 @@ const FileUploadComponent = ({startingImages}) => {
           {__('Clear Files', 'e-potis')}
         </button>
       }
-      </div>
     </>
   );
 }
