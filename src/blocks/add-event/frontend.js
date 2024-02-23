@@ -2,27 +2,67 @@ import {__} from '@wordpress/i18n'
 import {render, useState, useEffect} from '@wordpress/element'
 import { createRoot } from "react-dom/client";
 
-const FileUploadComponent = () => {
+const FileUploadComponent = ({startingImages}) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [primaryImage, setPrimaryImage] = useState(null);
   
+  useEffect(() => {
+    const customImagesArray = Object.entries(startingImages.custom_images).map(([id, { url, name }]) => ({
+      id,
+      name,
+      url,
+      isStartingImage: true
+    }));
+    const initialPrimaryImage = startingImages.primary_image || (customImagesArray.length > 0 ? customImagesArray[0].id : null);
+    setPrimaryImage(initialPrimaryImage[0]);
+
+    setSelectedFiles(customImagesArray);
+  }, [startingImages]);
+
+
   const handleFileChange = (event) => {
-    setSelectedFiles([...event.target.files]);
+    const newFiles = Array.from(event.target.files).map(file => ({
+      file,
+      name: file.name,
+      url: URL.createObjectURL(file),
+      isStartingImage: false,
+    }));
+    setSelectedFiles(prevFiles => [...prevFiles, ...newFiles]);
+    if (primaryImage === null && newFiles.length > 0) {
+      setPrimaryImage(newFiles[0].id);
+    }
   };
+ 
 
   useEffect(() => {
     window.currentSelectedFiles = selectedFiles; 
   }, [selectedFiles]); 
 
   const removeFile = (indexToRemove) => {
+    const fileToRemove = selectedFiles[indexToRemove];
+    console.log(fileToRemove)
+    if (fileToRemove.id === primaryImage) {
+      let newPrimary = selectedFiles.find((_, index) => index !== indexToRemove && index !== 0);
+      setPrimaryImage(newPrimary ? newPrimary.id : null);
+    }
+    if (!fileToRemove.isStartingImage) {
+      URL.revokeObjectURL(fileToRemove.url);
+    }
     setSelectedFiles(selectedFiles.filter((_, index) => index !== indexToRemove));
   };
 
-  const truncateFileName = (name) => {
-    return name.length > 20 ? `${name.slice(0, 20)}...` : name;
+  const handlePrimaryChange = (file_id) => {
+      setPrimaryImage(file_id);
   };
+
+  const clearFiles = () => {
+    setSelectedFiles([]);
+  }
+
   return(
     <>
-      <label htmlFor="event-images" className="file-upload-button">Choose Files</label>
+      <label htmlFor="event-images" className="file-upload-button">{__('Choose Files', 'e-potis')}</label>
+ 
       <input 
         type="file" 
         id="event-images" 
@@ -33,11 +73,37 @@ const FileUploadComponent = () => {
       />
       <div className="file-list">
         {selectedFiles.map((file, index) => (
+          
           <div key={index} className="file-entry">
-            <span className="file-name">{truncateFileName(file.name)}</span>
-            <span className="remove-file" onClick={() => removeFile(index)}>&#10005;</span>
+            <div className='file-image-container'>
+              <img 
+                className='file-image'
+                src={file.url} 
+                alt={file.name} 
+              /> 
+              <span className="remove-file" onClick={() => removeFile(index)}>&#10005;</span>
+            </div>
+            
+            <div className='side-by-side'>
+              <input
+                className="primary-image-check"
+                type="checkbox"
+                checked={file.id === primaryImage}
+                onChange={() => handlePrimaryChange(file.id)}
+              />
+              <label className = "primary-label" htmlFor="primary-image-check">{__('Primary', 'e-potis')}</label>
+            </div>
+            
           </div>
         ))}
+        {selectedFiles.length > 0 && 
+        <button 
+          className='clear-list'
+          onClick={clearFiles}
+        >
+          {__('Clear Files', 'e-potis')}
+        </button>
+      }
       </div>
     </>
   );
@@ -58,10 +124,15 @@ jQuery(document).ready(function($) {
 
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const root_element = document.querySelector('.file-upload-wrapper');
-  const root = createRoot(root_element);
-  root.render(<FileUploadComponent />)
+document.addEventListener('DOMContentLoaded',async () => {
+  const post_id = document.querySelector('.wp-block-ept-user-flow-add-event').getAttribute('data-post-id');
+
+  const  startingImages =(post_id && post_id !== "0")? await getImages(post_id):[];
+  const rootElement = document.querySelector('.file-upload-wrapper');
+  if (rootElement) {
+      const root = createRoot(rootElement);
+      root.render(<FileUploadComponent startingImages={startingImages} />);
+  }
 
   const add_event_form = document.querySelector('#add-event-form');
 
@@ -116,3 +187,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 })
+
+async function getImages(post_id){
+  if (post_id==0) return [];
+
+  const formData = {
+    postID : post_id
+  }
+
+const response = await fetch(ept_posts.retrieve, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+});
+
+const responseJSON = await response.json();
+const images = {
+  custom_images : responseJSON.images,
+  primary_image : responseJSON.primary_image_id
+}
+return images;
+}

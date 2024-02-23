@@ -20,7 +20,11 @@ function ept_uf_enqueue_rest_shorts(){
         'replace' => esc_url_raw(rest_url('ept/v1/replace'))
     ]);
     $eventURLS = json_encode([
-        'add' => esc_url_raw(rest_url('ept/v1/add-event'))
+        'add' => esc_url_raw(rest_url('ept/v1/add-event')),
+        //'edit' => esc_url_raw(rest_url('ept/v1/edit-event'))
+    ]);
+    $postURLS = json_encode([
+        'retrieve' => esc_url_raw(rest_url('ept/v1/retrieve-post'))
     ]);
     
 
@@ -49,6 +53,11 @@ function ept_uf_enqueue_rest_shorts(){
     wp_add_inline_script(
         'ept-user-flow-add-event-view-script',          
         "const ept_events = {$eventURLS}",
+        'before' //after
+    );
+    wp_add_inline_script(
+        'ept-user-flow-add-event-view-script',          
+        "const ept_posts = {$postURLS}",
         'before' //after
     );
 }

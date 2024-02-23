@@ -190,21 +190,47 @@
 
 .wp-block-ept-user-flow-add-event .file-list {
   margin-top: 10px;
-}
-
-.wp-block-ept-user-flow-add-event .file-name {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
 }
+
+.wp-block-ept-user-flow-add-event .file-image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100px; 
+  width:100px;
+  margin:0.66rem;
+}
+
+.wp-block-ept-user-flow-add-event .file-image-container .file-image{
+  display: block;
+  margin: 0 auto;
+}
+
+.wp-block-ept-user-flow-add-event .side-by-side {
+  display: flex;
+  flex-direction: row;
+}
+
 .wp-block-ept-user-flow-add-event .file-entry {
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 5px;
 }
 
 .wp-block-ept-user-flow-add-event .remove-file {
-  margin-left: 10px;
+  position:relative;
+  left: -24px;
+  top: -35px;
   cursor: pointer;
   color: red;
 }
+
+.wp-block-ept-user-flow-add-event .primary-image-check {
+  margin-top: .98rem;
+  transform: scale(0.7); 
+}
+

@@ -53,4 +53,10 @@ function ept_uf_rest_api_init(){
         'callback' => 'ept_uf_rest_api_add_event_handler',
         'permission_callback' => '__return_true'
     ]);
+
+    register_rest_route('ept/v1', '/retrieve-post', [
+        'methods' => WP_REST_Server::EDITABLE,
+        'callback' => 'ept_pe_rest_api_retrieve_post_handler',
+        'permission_callback' => '__return_true'
+    ]);
 }

@@ -9,44 +9,25 @@ import block from './block.json'
 
 registerBlockType(block.name, {
   edit({ attributes, setAttributes }) {
-    const { bgColor, textColor } = attributes
-    const blockProps = useBlockProps({
-      style: {
-        backgroundColor: bgColor,
-        color: textColor
-      } 
-    })
+    const { edit } = attributes;
+    const blockProps = useBlockProps();
 
     return (
       <>
         <InspectorControls>
-          <PanelColorSettings 
-            title={__('Colors', 'ept-user-flow')}
-            colorSettings={[
-              { 
-                label: __('Background Color', 'ept-user-flow'), 
-                value: bgColor,
-                onChange: newVal => setAttributes({ bgColor: newVal })
-              },
-              {
-                label: __('Text Color', 'ept-user-flow'),
-                value: textColor,
-                onChange: newVal => setAttributes({ textColor: newVal })
-              }
-            ]}
-          />
+        <ToggleControl 
+            label = {__('Edit event', 'e-potis')}
+            help = {
+                edit ? 
+                __('Editing event', 'e-potis') : 
+                __('Adding event', 'e-potis')
+            }
+            checked ={edit}
+            onChange = { edit => setAttributes({edit})}
+            />
         </InspectorControls>
         <div {...blockProps}>
-          <h1>Search: Your search term here</h1>
-          <form>
-            <input type="text" placeholder="Search" />
-            <div className="btn-wrapper">
-              <button type="submit" style={{
-                backgroundColor: bgColor,
-                color: textColor
-              }}>Search</button>
-            </div>
-          </form>
+            <p> dup </p>
         </div>
       </>
     )

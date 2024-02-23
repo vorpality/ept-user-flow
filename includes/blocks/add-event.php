@@ -8,6 +8,15 @@ function ept_uf_add_event_form_render_cb($atts) {
   }
   $table_name = $wpdb->prefix . 'bar_owners';
 
+  $current_post = 0;
+  $current_title = '';
+  $current_description = '';
+  if(isset($_GET['pid'])) {
+    $current_post = $_GET['pid'];
+    $current_title = get_the_title($current_post);
+    $current_description = get_the_excerpt($current_post);
+  }
+
   $query = $wpdb->prepare(
     "SELECT post_id FROM $table_name WHERE user_id = %d",
     $user->ID
@@ -24,7 +33,9 @@ function ept_uf_add_event_form_render_cb($atts) {
   }
   ob_start();
   ?>
-  <div class="wp-block-ept-user-flow-add-event">
+  <div class="wp-block-ept-user-flow-add-event" 
+    data-post-id = "<?php echo $current_post; ?>"
+  >
     <form method = "post"
       id="add-event-form"
       action = ""
@@ -42,7 +53,7 @@ function ept_uf_add_event_form_render_cb($atts) {
           <?php echo (__('Event Title','e-potis'));?>
         </h3>
         <input 
-          value=""
+          value="<?php echo $current_title;?>"
           type="text" 
           name="event_title" 
           id="event-title">
@@ -51,7 +62,7 @@ function ept_uf_add_event_form_render_cb($atts) {
           <?php echo (__('Event description','e-potis'));?>
         </h3>
         <textarea 
-          value=""
+          value="<?php echo $current_description;?>"
           rows="5"
           cols="40"
           name="event_description" 
