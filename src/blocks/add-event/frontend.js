@@ -16,7 +16,7 @@ const FileUploadComponent = ({startingImages}) => {
         }))
       : [];
     
-      const initialPrimaryImage = startingImages.primary_image || (customImagesArray.length > 0 ? customImagesArray[0].id : null);
+      const initialPrimaryImage = startingImages.primary_image || (customImagesArray.length > 0 ? customImagesArray[0].id : '');
       setPrimaryImage(initialPrimaryImage[0]);
 
       setSelectedFiles(customImagesArray);
