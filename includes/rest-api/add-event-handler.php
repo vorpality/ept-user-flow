@@ -6,22 +6,36 @@ function ept_uf_rest_api_add_event_handler($request){
 
   $file_handler = 'event_image';
   $attach_ids = [];
-  if (!empty($_FILES['event_images']['name'][0])) { // Check if at least one file was uploaded
+  
+  if (!empty($_FILES['event_images']['name'])) {
     $files = $_FILES['event_images'];
     for ($i = 0; $i < count($files['name']); $i++) {
-      foreach (array_keys($files) as $key) {
-          $_FILES['event_image_single'][$key] = $files[$key][$i];
-      }
-      $attach_id = media_handle_upload('event_image_single', 0);
-      if (!is_wp_error($attach_id)) {
-          $attach_ids[] = $attach_id;
+        if (!empty($files['name'][$i])) {
+            $_FILES['event_image_single']['name'] = $files['name'][$i];
+            $_FILES['event_image_single']['type'] = $files['type'][$i];
+            $_FILES['event_image_single']['tmp_name'] = $files['tmp_name'][$i];
+            $_FILES['event_image_single']['error'] = $files['error'][$i];
+            $_FILES['event_image_single']['size'] = $files['size'][$i];
+            
+            $attach_id = media_handle_upload('event_image_single', 0);
+            if (!is_wp_error($attach_id)) {
+                $attach_ids[] = $attach_id;
+            }
+        }
+    }
+    unset($_FILES['event_image_single']);
+}
+
+  if (!empty($request->get_param('existing_images'))) {
+    $existing_images = $request->get_param('existing_images');
+    foreach ($existing_images as $image_id) {
+      if (is_numeric($image_id)) {
+          $attach_ids[] = $image_id;
       }
     }
   }
-  unset($_FILES['event_image_single']);
-
   if (is_wp_error($attach_ids)) {
-    $response['message'] = 'File upload failed: ' . $attach_id->get_error_message();
+    $response['message'] = 'No valid images provided.';
     return new WP_REST_Response($response, 500);
   }
 
@@ -57,8 +71,13 @@ function ept_uf_rest_api_add_event_handler($request){
       'event_location' => $place_id,
     ),
   );
-
-  $post_id = wp_insert_post($event_post);
+  if ($request->get_param('post_id') == 0){
+    $post_id = wp_insert_post($event_post);
+  }
+  else {
+    $event_post['ID'] = $request->get_param('post_id');
+    $post_id = wp_update_post($event_post);
+  }
 
   if ($post_id == 0) {
     $response['message'] = 'Failed to create event.';

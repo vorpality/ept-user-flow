@@ -6,22 +6,26 @@ const FileUploadComponent = ({startingImages}) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [primaryImage, setPrimaryImage] = useState(null);
   
-  useEffect(() => {
-    const customImagesArray = Object.entries(startingImages.custom_images).map(([id, { url, name }]) => ({
-      id,
-      name,
-      url,
-      isStartingImage: true
-    }));
-    const initialPrimaryImage = startingImages.primary_image || (customImagesArray.length > 0 ? customImagesArray[0].id : null);
-    setPrimaryImage(initialPrimaryImage[0]);
+    useEffect(() => {
+      const customImagesArray = Object.entries(startingImages.custom_images).map(([id, { url, name }]) => ({
+        id,
+        name,
+        url,
+        isStartingImage: true
+      }));
+      const initialPrimaryImage = startingImages.primary_image || (customImagesArray.length > 0 ? customImagesArray[0].id : null);
+      setPrimaryImage(initialPrimaryImage[0]);
 
-    setSelectedFiles(customImagesArray);
-  }, [startingImages]);
+      setSelectedFiles(customImagesArray);
+
+    }, [startingImages]);
 
 
+  
+  
   const handleFileChange = (event) => {
-    const newFiles = Array.from(event.target.files).map(file => ({
+    const newFiles = Array.from(event.target.files).map((file, index) => ({
+      id: `new-${index}-${Date.now()}`, // Generate a unique ID for new files
       file,
       name: file.name,
       url: URL.createObjectURL(file),
@@ -57,12 +61,13 @@ const FileUploadComponent = ({startingImages}) => {
 
   const clearFiles = () => {
     setSelectedFiles([]);
+    setPrimaryImage(null);
   }
 
   return(
     <>
       <label htmlFor="event-images" className="file-upload-button">{__('Choose Files', 'e-potis')}</label>
- 
+      <input type="hidden" id="event-primary-image-id" value = {primaryImage} />
       <input 
         type="file" 
         id="event-images" 
@@ -153,17 +158,25 @@ document.addEventListener('DOMContentLoaded',async () => {
     const title=add_event_form.querySelector('#event-title').value;
     const description=add_event_form.querySelector('#event-description').value;
     const location=add_event_form.querySelector('#event-location').value;
+    const primaryImage =add_event_form.querySelector('#event-primary-image-id').value;
     event.preventDefault();
     add_event_form_fieldset.removeAttribute('disabled');
      
     const formData = new FormData();
     formData.append('user_id', userID);
+    formData.append('post_id', post_id);
     formData.append('event_title', title);
     formData.append('event_description', description);
     formData.append('event_location', location);
     window.currentSelectedFiles.forEach((file, index) => {
-      formData.append(`event_images[${index}]`, file);
+      if (file.isStartingImage){
+        formData.append(`existing_images[]`, file.id);
+      }
+      else {
+        formData.append(`event_images[${index}]`, file.file);
+      }
     });
+    formData.append('primary_image_id', primaryImage);
 
     const response = await fetch(ept_events.add, {
       method: 'POST',
