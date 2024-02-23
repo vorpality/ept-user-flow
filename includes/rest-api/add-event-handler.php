@@ -9,19 +9,19 @@ function ept_uf_rest_api_add_event_handler($request){
   
   if (!empty($_FILES['event_images']['name'])) {
     $files = $_FILES['event_images'];
-    for ($i = 0; $i < count($files['name']); $i++) {
-        if (!empty($files['name'][$i])) {
-            $_FILES['event_image_single']['name'] = $files['name'][$i];
-            $_FILES['event_image_single']['type'] = $files['type'][$i];
-            $_FILES['event_image_single']['tmp_name'] = $files['tmp_name'][$i];
-            $_FILES['event_image_single']['error'] = $files['error'][$i];
-            $_FILES['event_image_single']['size'] = $files['size'][$i];
-            
-            $attach_id = media_handle_upload('event_image_single', 0);
-            if (!is_wp_error($attach_id)) {
-                $attach_ids[] = $attach_id;
-            }
+    for ($i = 1; $i <= count($files['name']); $i++) {
+      if (!empty($files['name'][$i])) {
+        $_FILES['event_image_single']['name'] = $files['name'][$i];
+        $_FILES['event_image_single']['type'] = $files['type'][$i];
+        $_FILES['event_image_single']['tmp_name'] = $files['tmp_name'][$i];
+        $_FILES['event_image_single']['error'] = $files['error'][$i];
+        $_FILES['event_image_single']['size'] = $files['size'][$i];
+        
+        $attach_id = media_handle_upload('event_image_single', 0);
+        if (!is_wp_error($attach_id)) {
+          $attach_ids[] = $attach_id;
         }
+      }
     }
     unset($_FILES['event_image_single']);
 }
@@ -89,8 +89,9 @@ function ept_uf_rest_api_add_event_handler($request){
     foreach($attach_ids as $attach_id){
       add_post_meta($post_id, 'custom_images', $attach_id);
     }
-    update_post_meta($post_id, 'primary-image', $attach_ids[0]);
+    update_post_meta($post_id, 'primary_image', $request->get_param('primary_image_id'));
   }
+  $response['images'] = $attach_ids;
   $response['url']= get_the_permalink($post_id);
   $response['status'] = 2;
   return $response;

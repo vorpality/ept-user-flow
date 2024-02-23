@@ -4,15 +4,18 @@ import { createRoot } from "react-dom/client";
 
 const FileUploadComponent = ({startingImages}) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [primaryImage, setPrimaryImage] = useState(null);
+  const [primaryImage, setPrimaryImage] = useState('');
   
     useEffect(() => {
-      const customImagesArray = Object.entries(startingImages.custom_images).map(([id, { url, name }]) => ({
-        id,
-        name,
-        url,
-        isStartingImage: true
-      }));
+      const customImagesArray = startingImages.custom_images && Object.keys(startingImages.custom_images).length > 0
+      ? Object.entries(startingImages.custom_images).map(([id, { url, name }]) => ({
+          id,
+          name,
+          url,
+          isStartingImage: true
+        }))
+      : [];
+    
       const initialPrimaryImage = startingImages.primary_image || (customImagesArray.length > 0 ? customImagesArray[0].id : null);
       setPrimaryImage(initialPrimaryImage[0]);
 
@@ -32,7 +35,7 @@ const FileUploadComponent = ({startingImages}) => {
       isStartingImage: false,
     }));
     setSelectedFiles(prevFiles => [...prevFiles, ...newFiles]);
-    if (primaryImage === null && newFiles.length > 0) {
+    if (primaryImage == '' && newFiles.length > 0) {
       setPrimaryImage(newFiles[0].id);
     }
   };
@@ -47,7 +50,7 @@ const FileUploadComponent = ({startingImages}) => {
     console.log(fileToRemove)
     if (fileToRemove.id === primaryImage) {
       let newPrimary = selectedFiles.find((_, index) => index !== indexToRemove && index !== 0);
-      setPrimaryImage(newPrimary ? newPrimary.id : null);
+      setPrimaryImage(newPrimary ? newPrimary.id : '');
     }
     if (!fileToRemove.isStartingImage) {
       URL.revokeObjectURL(fileToRemove.url);
@@ -61,7 +64,7 @@ const FileUploadComponent = ({startingImages}) => {
 
   const clearFiles = () => {
     setSelectedFiles([]);
-    setPrimaryImage(null);
+    setPrimaryImage('');
   }
 
   return(

@@ -23,7 +23,7 @@ function ept_pe_rest_api_retrieve_post_handler($request){
   'categories' => wp_get_post_categories($postID, ['fields' => 'all']),
   'tags' => wp_get_post_tags($postID, ['fields' => 'all']),
   ];
-  $primary_image = $postData['meta']['primary-image'];
+  $primary_image = $postData['meta']['primary_image'];
   $imageIDs = $postData['meta']['custom_images'];
   $images = [];
   foreach($imageIDs as $imageID){
