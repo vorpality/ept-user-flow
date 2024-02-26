@@ -47,9 +47,8 @@ const FileUploadComponent = ({startingImages}) => {
 
   const removeFile = (indexToRemove) => {
     const fileToRemove = selectedFiles[indexToRemove];
-    console.log(fileToRemove)
-    if (fileToRemove.id === primaryImage) {
-      let newPrimary = selectedFiles.find((_, index) => index !== indexToRemove && index !== 0);
+    if (fileToRemove.id == primaryImage) {
+      let newPrimary = selectedFiles.find((_, index) => index != indexToRemove);
       setPrimaryImage(newPrimary ? newPrimary.id : '');
     }
     if (!fileToRemove.isStartingImage) {
@@ -177,6 +176,7 @@ document.addEventListener('DOMContentLoaded',async () => {
       }
       else {
         formData.append(`event_images[${index}]`, file.file);
+        formData.append(`tempID[${index}]`, file.id);
       }
     });
     formData.append('primary_image_id', primaryImage);

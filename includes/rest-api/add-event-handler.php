@@ -3,10 +3,9 @@ function ept_uf_rest_api_add_event_handler($request){
   require_once( ABSPATH . 'wp-admin/includes/image.php' );
   require_once( ABSPATH . 'wp-admin/includes/file.php' );
   require_once( ABSPATH . 'wp-admin/includes/media.php' );
-
   $file_handler = 'event_image';
   $attach_ids = [];
-  
+  $primary_id = 0;
   if (!empty($_FILES['event_images']['name'])) {
     $files = $_FILES['event_images'];
     for ($i = 1; $i <= count($files['name']); $i++) {
@@ -16,10 +15,13 @@ function ept_uf_rest_api_add_event_handler($request){
         $_FILES['event_image_single']['tmp_name'] = $files['tmp_name'][$i];
         $_FILES['event_image_single']['error'] = $files['error'][$i];
         $_FILES['event_image_single']['size'] = $files['size'][$i];
-        
+
         $attach_id = media_handle_upload('event_image_single', 0);
         if (!is_wp_error($attach_id)) {
           $attach_ids[] = $attach_id;
+          if ($request->get_param('tempID')[$i] == $request->get_param('primary_image_id')){
+            $primary_id = $attach_id;
+          }
         }
       }
     }
@@ -63,7 +65,6 @@ function ept_uf_rest_api_add_event_handler($request){
   $event_post = array(
     'post_author' => $userID,
     'post_title' => $title,
-    'post_content' => $description,
     'post_excerpt' => $description,
     'post_status' => 'publish',
     'post_type' => 'event',
@@ -89,9 +90,8 @@ function ept_uf_rest_api_add_event_handler($request){
     foreach($attach_ids as $attach_id){
       add_post_meta($post_id, 'custom_images', $attach_id);
     }
-    update_post_meta($post_id, 'primary_image', $request->get_param('primary_image_id'));
+    update_post_meta($post_id, 'primary_image', $primary_id);
   }
-  $response['images'] = $attach_ids;
   $response['url']= get_the_permalink($post_id);
   $response['status'] = 2;
   return $response;
