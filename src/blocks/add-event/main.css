@@ -213,7 +213,8 @@
 
 .wp-block-ept-user-flow-add-event .side-by-side {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
+  width:100%;
 }
 
 .wp-block-ept-user-flow-add-event .file-entry {
@@ -221,6 +222,7 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 5px;
+  margin-right:3rem;
 }
 
 .wp-block-ept-user-flow-add-event .remove-file {
