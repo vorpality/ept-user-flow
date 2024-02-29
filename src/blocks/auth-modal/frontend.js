@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('click', event => {
             event.preventDefault()
             modalEl.classList.add('modal-show') 
+            document.body.classList.add('no-scroll'); 
+
         })
     })
   
@@ -23,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('click', event => {
             event.preventDefault()
             modalEl.classList.remove('modal-show')
+            document.body.classList.remove('no-scroll');
+
         })
     }) 
   

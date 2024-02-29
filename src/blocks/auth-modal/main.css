@@ -261,3 +261,8 @@
   .wp-block-ept-user-flow-auth-modal .checkbox-duo>label{
     min-width:66%
   }
+
+  .no-scroll {
+    overflow: hidden;
+    height: 100%;
+  }
