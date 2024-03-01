@@ -25,7 +25,11 @@ function ept_uf_register_blocks() {
         ]],
         [ 'name' => 'claim-business', 'options' => [
             'render_callback' => 'ept_uf_claim_business_render_cb'
-        ]]
+        ]],
+        [ 'name' => 'locationeer', 'options' => [
+            'render_callback' => 'ept_locationeer_render_cb'
+        ]],
+        
     ]; 
 
     foreach($blocks as $block){

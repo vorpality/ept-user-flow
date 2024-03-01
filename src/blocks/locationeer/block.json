@@ -1,0 +1,43 @@
+{
+  "$schema": "https://raw.githubusercontent.com/WordPress/gutenberg/trunk/schemas/json/block.json",
+  "apiVersion": 2,
+  "name": "ept-user-flow/locationeer",
+  "title": "Locationeer", 
+  "category": "text",
+  "description": "Adds a locationeer block",
+  "textdomain": "e-potis",
+  "attributes": {
+    "bg_color":{
+      "type":"string",
+      "default":"#f87171"
+    },
+    "text_color":{
+      "type":"string",
+      "default":"#fff"
+    },
+    "fieldNumber":{
+      "type":"number",
+      "default":"3"
+    },
+    "webmaster_email":{
+      "type":"string",
+      "default":""
+    },
+    "fieldNames":{
+      "type":"array",
+      "default":[]
+    },
+    "boxSizes":{
+      "type":"array",
+      "default":[]
+    },
+    "isRequired":{
+      "type":"array",
+      "default":[]
+    }
+  },
+  "editorScript": "file:./index.js",
+  "viewScript":"file:./frontend.js",
+  "style": "file:./index.css",
+  "editorStyle":"file:./index.css"
+ }  

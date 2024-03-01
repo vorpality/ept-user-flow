@@ -1,0 +1,165 @@
+/* Contact form */
+.wp-block-ept-user-flow-locationeer{
+  color:white;
+  background-color: rgb(51, 51, 51);
+  width: 100%;
+  border-radius: 12px 12px 0px 0px;
+  position: fixed;
+  top: 0px;
+  left:0px;
+  z-index:10;
+
+}
+
+.wp-block-ept-user-flow-locationeer .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding:3rem;
+  padding-bottom:1rem;
+  margin-left : auto;
+  margin-right: auto;
+}
+
+.wp-block-ept-user-flow-locationeer #user-address {
+  margin-top:2rem;
+  margin-right:2rem;
+  margin-bottom:2rem;
+  padding: 0 .6rem;
+  color: rgb(85, 80, 80);
+}
+
+.wp-block-ept-user-flow-locationeer .content >p {
+  text-align: center;
+}
+
+.wp-block-ept-user-flow-locationeer .form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.wp-block-ept-user-flow-locationeer .form-container>form{
+  display: flex;
+  flex-direction: column;
+}
+
+.wp-block-ept-user-flow-locationeer .form-container>form>#btn-container {
+  display:flex;
+  flex-direction: row;
+  align-content: baseline;
+  margin-top:2rem;
+}
+
+.wp-block-ept-user-flow-locationeer #submit-location {
+  background-color: rgb(85, 80, 80);
+  margin-right :1rem;
+  padding:.3rem .6rem;
+  width:fit-content;
+  border-radius: 2rem;
+}
+
+.wp-block-ept-user-flow-locationeer #map-select {
+  background-color: inherit;
+}
+.wp-block-ept-user-flow-locationeer #map-select:hover {
+  text-decoration: underline;
+}
+
+.wp-block-ept-user-flow-locationeer #skip-location {
+  background-color: inherit;
+  font-size:.75rem;
+}
+
+.wp-block-ept-user-flow-locationeer #skip-location:hover {
+  text-decoration: underline;
+}
+
+.wp-block-ept-user-flow-locationeer .content #submit-location:hover {
+  background-color: rgb(133, 131, 131) !important;
+}
+
+
+.wp-block-ept-user-flow-locationeer .content .hidden {
+  display:none !important;
+}
+
+.wp-block-ept-user-flow-locationeer #invalid-address-popup {
+  position: absolute;
+  background-color: #f44336;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  top: 50px; /* Adjust based on your form's layout */
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: fit-content;
+  z-index: 100; /* Ensure it's above other content */
+  display: none; /* Start hidden */
+}
+
+
+
+
+.wp-block-ept-user-flow-locationeer #map-popup{
+  padding: 2rem;
+  position:fixed;
+  top:0;
+  width:100%;
+  height:100%;
+  left:0;
+  display:none;
+  margin-top: 2rem;
+}
+.wp-block-ept-user-flow-locationeer #map-overlay{
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 100;
+}
+
+
+
+.wp-block-ept-user-flow-locationeer #map-popup #map-canvas{
+  margin:auto;
+  width: 80vw;
+  height: 80vh;
+  z-index: 1000;
+}
+
+.wp-block-ept-user-flow-locationeer #map-popup #popup-container>button{
+  position: relative;
+  left:10vw;
+  background-color: white;
+  color:rgb(0 0 0 / 0.7);
+  padding:1rem;
+  border-radius: 1rem;
+  z-index:1000;
+}
+
+.wp-block-ept-user-flow-locationeer #map-popup #popup-container #confirm-location{
+  top:1rem;
+  padding-top:0.7rem;
+  padding-bottom:0.7rem;
+}
+
+.wp-block-ept-user-flow-locationeer #map-popup #popup-container .close-popup{
+  top:-1rem;
+  padding-top:0.5rem;
+  padding-bottom:0.5rem;
+}
+
+.wp-block-ept-user-flow-locationeer #map-popup #popup-container>button:hover {
+  color:rgb(0 0 0 / 0.3);
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}
