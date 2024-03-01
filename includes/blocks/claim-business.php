@@ -3,8 +3,8 @@
 function ept_uf_claim_business_render_cb($atts) {
   global $wpdb;
   $user = wp_get_current_user();
-  $table_name = $wpdb->prefix . 'bar_owners';
-  $unowned_places = $wpdb->get_results("SELECT post_id FROM $table_name WHERE user_id IS NULL OR user_id = 0", ARRAY_A);
+  $bar_owners_table = $wpdb->prefix . 'bar_owners';
+  $unowned_places = $wpdb->get_results("SELECT post_id FROM $bar_owners_table WHERE user_id IS NULL OR user_id = 0", ARRAY_A);
   $unowned_places_ids = wp_list_pluck($unowned_places, 'post_id');
   $places_data = array_map(function($post_id) {
     $post = get_post($post_id);

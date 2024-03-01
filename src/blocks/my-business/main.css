@@ -29,10 +29,12 @@
   margin:.66rem;
   margin-left:1.2rem;
 }
-.wp-block-ept-user-flow-my-business .business-list>li>{
+.wp-block-ept-user-flow-my-business .business-list>dt{
   margin:.3rem;
 }
-
+.wp-block-ept-user-flow-my-business .business-list>dd{
+  margin:.5rem;
+}
 .wp-block-ept-user-flow-my-business .add-duo {
   margin: 0.33rem;
   background-color: inherit;

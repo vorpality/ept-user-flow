@@ -6,23 +6,32 @@ function ept_uf_my_business_render_cb($atts) {
   if (!get_user_meta($user->ID, 'business_owner', true) && !is_admin()){
     wp_redirect(home_url());
   }
-  $table_name = $wpdb->prefix . 'bar_owners';
+  $bar_owners_table = $wpdb->prefix . 'bar_owners';
+  $event_places_table = $wpdb->prefix . 'events_places';
+
 
   $query = $wpdb->prepare(
-    "SELECT post_id FROM $table_name WHERE user_id = %d",
+    "SELECT post_id FROM $bar_owners_table WHERE user_id = %d",
     $user->ID
   );
 
   $results = $wpdb->get_results($query);
-
   $businesses = [];
+  
 
 if (!empty($results)) {
     foreach ($results as $row) {
-        $businesses[] = $row->post_id;
+      $events= [];
+      $events_results = $wpdb->get_results("SELECT event_id FROM $event_places_table WHERE place_id = $row->post_id", ARRAY_A);
+      foreach($events_results as $e_row){
+        $events[] = $e_row['event_id'];
+      }
+        $businesses[] = [
+          'ID'=>$row->post_id,
+          'events'=>$events
+        ];
     }
 }
-
   ob_start()
   ?>
   <div class="wp-block-ept-user-flow-my-business"> 
@@ -34,15 +43,24 @@ if (!empty($results)) {
       </span>
     <dl class = "business-list"> 
       <?php
-    foreach ($businesses as $businessID){
-      $business_name = get_the_title($businessID);
-      $business_url = get_permalink($businessID);
+    foreach ($businesses as $business){
+      $business_name = get_the_title($business['ID']);
+      $business_url = get_permalink($business['ID']);
       ?>
-      <li>
+      <dt>
         <a href = <?php echo $business_url?> class="list-item">
           <?php echo($business_name); ?>
         </a>
-      </li>
+          <?php foreach($business['events'] as $b_event){ 
+            $event_name = get_the_title($b_event);
+            $event_url = get_permalink($b_event); ?>
+            <dd> -
+              <a href = <?php echo $event_url?> class = "sublist-item">
+                <?php echo($event_name); ?>
+              </a>
+            </dd> <?php
+          }?>
+        </dt>
       <?php
     }
     ?>
