@@ -38,5 +38,6 @@ add_filter('wp_mail_from_name', 'ept_uf_new_mail_from_name');
 add_action('login_form_resetpass', 'ept_pw_reset_redirect');
 add_action('login_form_rp','do_password_reset');
 add_action('login_form_resetpass', 'do_password_reset');
+//add_filter('rest_authentication_errors', 'rest_cookie_check_errors');
 add_action('init', 'ept_user_flow_load_php_translations');
 add_action('wp_enqueue_scripts', 'ept_user_flow_load_block_translations',100); 
