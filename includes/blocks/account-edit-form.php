@@ -1,6 +1,7 @@
 <?php
 
 function ept_uf_account_edit_form_render_cb($atts) {
+
   $user = wp_get_current_user();
   $nsltr = get_user_meta($user->ID, 'newsletter', true);
   ob_start();

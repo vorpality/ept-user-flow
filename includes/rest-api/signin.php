@@ -15,6 +15,7 @@ function ept_uf_rest_api_signin_handler($request){
 
   $email = sanitize_email($params['user_login']);
   $password = sanitize_text_field($params['password']);
+
   // Mobile login 
 
   if (isset($params['app']) && $params['app'] == 'true') {
@@ -26,10 +27,19 @@ function ept_uf_rest_api_signin_handler($request){
     }
 
     wp_set_current_user($user->ID);
-    wp_set_auth_cookie($user->ID, true);
+
+      // Generate a token and set expiration time (15 days from now)
+      $token = bin2hex(openssl_random_pseudo_bytes(16));
+      $persist = (isset($params['remember']) && $params['app'] == 'true') ? (12 * 365) : 1 ; // persist a year if remember me is checked.
+      $expiration = time() + (2 * 60 * 60 * $persist); // 2 hours in seconds or a year if remember me is activated.
+
+  
+      update_user_meta($user->ID, 'auth_token', $token);
+      update_user_meta($user->ID, 'auth_token_expiration', $expiration);
 
     return rest_ensure_response(array(
         'status' => 200,
+        'token' => $token,
         'message' => 'Login successful', 
         'user' => $user));
 }

@@ -12,8 +12,9 @@ function ept_uf_rest_api_init(){
     register_rest_route('ept/v1', '/test', [
         'methods' => WP_REST_SERVER::CREATABLE,
         'callback' => 'ept_uf_rest_api_test',
-        'permission_callback' => 'is_user_logged_in'
-        //'permission_callback' => '__return_true'
+        'permission_callback' => 'custom_is_user_logged_in'
+
+        
     ]);
 
     
