@@ -8,7 +8,15 @@ function ept_uf_rest_api_init(){
         'callback' => 'ept_uf_rest_api_signup_handler',
         'permission_callback' => '__return_true'
     ]);
+    //example.com/wp-json/ept/v1/test
+    register_rest_route('ept/v1', '/test', [
+        'methods' => WP_REST_SERVER::CREATABLE,
+        'callback' => 'ept_uf_rest_api_test',
+        'permission_callback' => 'is_user_logged_in'
+        //'permission_callback' => '__return_true'
+    ]);
 
+    
     //example.com/wp-json/ept/v1/signin
     register_rest_route('ept/v1', '/signin', [
         'methods' => WP_REST_SERVER::EDITABLE,
