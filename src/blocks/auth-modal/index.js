@@ -4,8 +4,8 @@ import { PanelBody, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import icons from '../../icons.js'
 import './main.css'
-
-registerBlockType('ept-user-flow/auth-modal', {
+import block from './block.json'
+registerBlockType(block.name, {
   icon: {
     src: icons.login
   }, 

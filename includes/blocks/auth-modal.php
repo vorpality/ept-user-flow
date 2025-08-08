@@ -35,7 +35,7 @@ function ept_auth_modal_render_cb($atts) {
                 <i class="bi bi-person-plus-fill"></i><?php echo (__('Sign up','e-potis'));?>
               </a>
             </li>
-            <?php
+          <?php
           }
 
           ?>
@@ -56,15 +56,13 @@ function ept_auth_modal_render_cb($atts) {
               <button type="submit">Sign in</button>
             </fieldset>
           </form>
-<!-- 
-data-login_uri="http://localhost/wp-json/ept/v1/google-signin" 
-data-callback="handleGoogleSignin" 
--->
+          <!-- 
+          data-login_uri="http://localhost/wp-json/ept/v1/google-signin" 
+          data-callback="handleGoogleSignin" 
+          -->
           <div id="g_id_onload"
             data-client_id="871559730084-mdf5uea60k4clraguvr76nd17c1517vr.apps.googleusercontent.com"
             data-callback="handleGoogleSignIn"
-            
-
             data-auto_prompt="false">
           </div>
           <div class="g_id_signin"
@@ -74,13 +72,8 @@ data-callback="handleGoogleSignin"
             data-text="sign_in_with"
             data-shape="rectangular"
             data-logo_alignment="left">
-          </div>
-
-
-          <?php
-
-          if($atts['showRegister']) {
-            ?> 
+          </div> <?php
+          if($atts['showRegister']) { ?>
             <!-- Register Form -->
             <form id="signup-tab">
               <div id="signup-status"></div>
@@ -104,16 +97,12 @@ data-callback="handleGoogleSignin"
                   <label for="su-business-owner"><?php echo (__('I want to learn news about e-potis','e-potis'));?></label>
                 </div>
 
-
                 <button type="submit"><?php echo (__('Sign up','e-potis'));?></button>
               </fieldset>
             </form>
             <?php
-          }
-
-          ?>
-            <!-- Business Owner Checkbox -->
-
+          } ?>
+          <!-- Business Owner Checkbox -->
         </div>
       </div>
     </div>
@@ -124,4 +113,4 @@ data-callback="handleGoogleSignin"
   ob_end_clean();
 
   return $output;
-}
+} 

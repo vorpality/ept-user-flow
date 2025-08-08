@@ -14,7 +14,16 @@ import {
 } from '@wordpress/components'
 import './main.css'
 import block from './block.json'
-
 registerBlockType(block.name, {
-  edit() {}
+    edit({ attributes }) {
+        const blockProps = useBlockProps();
+        return (
+            <div {...blockProps}>
+                <p>{__('Locationeer Block Placeholder', 'e-potis')}</p>
+            </div>
+        );
+    },
+    save() {
+        return null; // Or implement frontend save if not dynamic
+    }
 });

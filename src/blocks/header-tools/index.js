@@ -4,8 +4,8 @@ import { PanelBody, SelectControl, CheckboxControl } from '@wordpress/components
 import { __ } from '@wordpress/i18n';
 import icons from '../../icons.js'
 import './main.css'
-
-registerBlockType('ept-user-flow/header-tools', {
+import block from './block.json'
+registerBlockType(block.name, {
   icon: {
     src: icons.user_bubble
   },
