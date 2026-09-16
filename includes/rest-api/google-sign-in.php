@@ -8,7 +8,7 @@ function ept_uf_google_signin_handler($request){
   $response['user_id'] = -1;
   $response['type'] = 'google';
   $google_client_id = '871559730084-mdf5uea60k4clraguvr76nd17c1517vr.apps.googleusercontent.com';
-  $google_client_secret = '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';
+  $google_client_secret = '';
   $redirect_uri = home_url();
   $client = new Google_Client();
   $client->setClientId($google_client_id);
